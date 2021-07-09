@@ -15,7 +15,7 @@ function App() {
 
 
  const fetchTodos = async () => {
-    const resp = await fetch('https://localhost:9999/get-todos')
+    const resp = await fetch('https://localhost:9999/get-todos', {mode: 'no-cors'})
     const  data = await resp.json();
     console.log(data, 'data')
   }
