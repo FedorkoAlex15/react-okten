@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 
 import {useDispatch, useSelector} from 'react-redux'
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 
 
 
@@ -38,11 +38,16 @@ const NestedChild = () => {
 console.log(posts, 'posts')
 
 
+    let  [customChange, onCustomChange] = useState('default')
+
+   const onCustomIncrementChange = (e) => {
+        onCustomChange(e.target.value)
+   }
+
 
 // Коротший синтаксис
 // const NestedChild = () => {
 //     const counter = useSelector(({counter: {value}}) => value)
-
 
 
   return(
@@ -64,7 +69,7 @@ console.log(posts, 'posts')
 
 
           <button onClick={() => {
-            dispatch({type: 'INC-Custom', payload: +prompt('Type number')})
+            dispatch({type: 'INC-Custom', payload: customChange})
           }}> Increment</button>
 
           <button onClick={() => {
@@ -78,6 +83,12 @@ console.log(posts, 'posts')
                   {type: 'RESET'}
               )
           }}>Reset</button>
+
+
+              <input type="text" name={'customIncrement'} onChange={onCustomIncrementChange}/>
+
+
+
 
 
         <img src={logo} className="App-logo" alt="logo" />
