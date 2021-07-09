@@ -1,110 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
-
-import {useDispatch, useSelector} from 'react-redux'
+import {useSelector} from "react-redux";
 import {useEffect} from "react";
 
-
-
-
-const NestedChild = () => {
-    const counter = useSelector((state) => {
-        console.log('from useSelector', state)
-
-        return state.counter.value
-    })
-
-    const posts = useSelector(({posts}) => posts);
-    const dispatch = useDispatch()
-
-    const fetchPosts = async () => {
-        const response = await fetch('https://jsonplaceholder.typicode.com/posts')
-        const json = await response.json();
-
-        console.log(json)
-        dispatch({
-            type: 'ADD_POSTS',
-            payload: json
-        })
-
-    }
-
-
-    useEffect(() => {
-        fetchPosts();
-    }, [])
-
-
-console.log(posts, 'posts')
-
-
-
-// Коротший синтаксис
-// const NestedChild = () => {
-//     const counter = useSelector(({counter: {value}}) => value)
-
-
-
-  return(
-
-
-      <header className="App-header">
-          <h1>{counter}</h1>
-
-
-          <ul>
-              {
-                  posts.map(post => {
-                      <li>{post.title}</li>
-                  })
-
-              }
-          </ul>
-
-
-
-          <button onClick={() => {
-            dispatch({type: 'INC-Custom', payload: +prompt('Type number')})
-          }}> Increment</button>
-
-          <button onClick={() => {
-          dispatch(
-              {type: 'DEC'}
-          )
-          }}>Decrement</button>
-
-          <button onClick={() => {
-              dispatch(
-                  {type: 'RESET'}
-              )
-          }}>Reset</button>
-
-
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-          Learn React with okten
-        </a>
-
-      </header>
-  )
+const CreateTodoForm = () => {
 
 }
 
-
-
+const Todos = () => {}
 
 function App() {
+
+  const store = useSelector(store => store)
+
+  console.log(store)
+
+
+ const fetchTodos = async () => {
+    const resp = await fetch('https://localhost:9999/get-todos')
+    const  data = await resp.json();
+    console.log(data, 'data')
+  }
+
+
+  useEffect(() => {
+    fetchTodos()
+  }, [])
+
+
+
   return (
     <div className="App">
-        <NestedChild/>
+
+
+
     </div>
   );
 }
