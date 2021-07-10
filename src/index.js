@@ -11,8 +11,8 @@ const initialState = {
         value: 0
     },
 
-    posts: {
-      posts: []
+    users: {
+      users: []
     }
 }
 
@@ -47,10 +47,10 @@ const reducer  = (state = initialState, action) => {
             }
         }
 
-        case 'Add_POSTS': {
+        case 'Add_USERS': {
             return {
                 ...state,
-                posts: action.payload
+                users: action.payload
             }
         }
 

@@ -2,7 +2,7 @@ import {useEffect} from "react";
 import {useDispatch, useSelector} from 'react-redux'
 export default function Users(){
 
-    const posts = useSelector(({posts}) => posts)
+    const users = useSelector(({users}) => users)
     const dispatch = useDispatch();
 
     const fetchPosts = async () => {
@@ -10,7 +10,7 @@ export default function Users(){
         const data = await response.json();
 
         dispatch({
-            type: 'Add_POSTS',
+            type: 'Add_USERS',
             payload: data
         })
 
@@ -25,14 +25,16 @@ export default function Users(){
     }, [])
 
 
-console.log(posts, 'posts')
+console.log(users, 'users')
 
     return(
         <div>
             {
-                posts.map(post => {
-                    return <div>{post.name}</div>
+
+                users.map(user => {
+                    return <div>{user.id}</div>
                 })
+
             }
         </div>
     )
