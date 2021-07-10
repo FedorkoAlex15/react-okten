@@ -11,9 +11,9 @@ const initialState = {
         value: 0
     },
 
-    users: {
+
       users: []
-    }
+
 }
 
 
