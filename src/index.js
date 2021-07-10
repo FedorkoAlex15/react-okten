@@ -6,42 +6,33 @@ import reportWebVitals from './reportWebVitals';
 import {createStore} from "redux";
 import {Provider} from 'react-redux'
 
-const initilState = {
+const initialState = {
     counter: {
         value: 0
     },
-    posts: []
 
+    posts: {
+      posts: []
+    }
 }
 
 
-
-const reducer = (state = initilState, action) => {
+const reducer  = (state = initialState, action) => {
     switch (action.type){
-        // case 'INC': {
-        //    return{
-        //        ...state,
-        //        counter: {
-        //            value: state.counter.value + 1
-        //        }
-        //    }
-        // }
-
-        case 'INC-Custom' : {
+        case 'INC-CUSTOM':{
             return {
                 ...state,
                 counter: {
                     value: action.payload
                 }
-
             }
         }
 
-        case 'DEC': {
+        case 'DEC-CUSTOM': {
             return {
                 ...state,
                 counter: {
-                    value: state.counter.value - 1
+                    value: state.counter.value - action.payload
                 }
             }
         }
@@ -56,31 +47,40 @@ const reducer = (state = initilState, action) => {
             }
         }
 
-        case 'ADD_POSTS': {
+        case 'Add_POSTS': {
             return {
                 ...state,
-               posts: action.payload
+                posts: action.payload
             }
         }
-
 
 
         default:
             return state
     }
-}
 
+}
 
 const store = createStore(reducer)
 
 
 
 
+
+
+
+
+
+
+
+
 ReactDOM.render(
   <React.StrictMode>
-      <Provider store={store}>
-          <App />
-      </Provider>
+    <Provider store={store}>
+        <App/>
+    </Provider>
+
+
 
   </React.StrictMode>,
   document.getElementById('root')

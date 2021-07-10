@@ -1,122 +1,89 @@
-import logo from './logo.svg';
+
 import './App.css';
 
 import {useDispatch, useSelector} from 'react-redux'
 import {useEffect, useState} from "react";
-
-
+import Users from "./components/Users/Users";
 
 
 const NestedChild = () => {
-    const counter = useSelector((state) => {
-        console.log('from useSelector', state)
 
-        return state.counter.value
-    })
+    // Custom Increment
+    let [customChange, setCustomChange] = useState('')
 
-    const posts = useSelector(({posts}) => posts);
-    const dispatch = useDispatch()
-
-    const fetchPosts = async () => {
-        const response = await fetch('https://jsonplaceholder.typicode.com/posts')
-        const json = await response.json();
-
-        console.log(json)
-        dispatch({
-            type: 'ADD_POSTS',
-            payload: json
-        })
-
+    const onCustomIncrementChange = (e) => {
+        setCustomChange(e.target.value)
     }
 
 
-    useEffect(() => {
-        fetchPosts();
-    }, [])
-
-
-console.log(posts, 'posts')
-
-
-    let  [customChange, onCustomChange] = useState('default')
-
-   const onCustomIncrementChange = (e) => {
-        onCustomChange(e.target.value)
-   }
-
-
-// Коротший синтаксис
-// const NestedChild = () => {
-//     const counter = useSelector(({counter: {value}}) => value)
-
-
-  return(
-
-
-      <header className="App-header">
-          <h1>{counter}</h1>
-
-
-          <ul>
-              {
-                  posts.map(post => {
-                      <li>{post.title}</li>
-                  })
-
-              }
-          </ul>
-
-
-
-          <button onClick={() => {
-            dispatch({type: 'INC-Custom', payload: customChange})
-          }}> Increment</button>
-
-          <button onClick={() => {
-          dispatch(
-              {type: 'DEC'}
-          )
-          }}>Decrement</button>
-
-          <button onClick={() => {
-              dispatch(
-                  {type: 'RESET'}
-              )
-          }}>Reset</button>
-
-
-              <input type="text" name={'customIncrement'} onChange={onCustomIncrementChange}/>
+    const counterApp = useSelector(({counter: {value}}) => value)
+    const dispatch = useDispatch()
 
 
 
 
 
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-          Learn React with okten
-        </a>
 
-      </header>
-  )
+    return(
+        <div>
+            {/*Users component*/}
+            <Users/>
+            <h1>{counterApp}</h1>
+
+
+            {/*Increment*/}
+            <form action="#">
+                <input  type={'number'}  onChange={onCustomIncrementChange} />
+
+                <button onClick={() => {
+                    dispatch({type: 'INC-CUSTOM', payload: customChange})
+                }
+                }>Increment</button>
+            </form>
+
+            {/*Decrement*/}
+            <form action="#">
+                <input type={'number'} onChange={onCustomIncrementChange}/>
+                <button onClick={() => {
+                    dispatch({
+                        type: 'DEC-CUSTOM', payload: customChange
+                    })
+
+                }}>Decrement</button>
+            </form>
+
+
+
+            {/*Reset*/}
+            <button onClick={() => {
+                dispatch({
+                    type: 'RESET'
+
+
+                })
+
+
+            }}>Reset</button>
+
+
+
+        </div>
+    )
 
 }
 
 
 
 
+
 function App() {
   return (
-    <div className="App">
-        <NestedChild/>
-    </div>
+      <div>
+        <div className="App">
+          <NestedChild/>
+        </div>
+      </div>
+
   );
 }
 
